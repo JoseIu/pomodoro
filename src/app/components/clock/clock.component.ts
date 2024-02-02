@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Subject, takeUntil, tap, timer } from 'rxjs';
 
 @Component({
   selector: 'clock-timer',
@@ -8,20 +9,46 @@ import { Component, Input } from '@angular/core';
   templateUrl: './clock.component.html',
   styleUrl: './clock.component.scss',
 })
-export class ClockComponent {
-  @Input() timeMinutes?: number = 50;
+export class ClockComponent implements OnInit {
+  @Input() public minutes: number = 1;
+  @Input() public rest: number = 0;
 
-  public progres: number = 0;
+  public totalTime?: number;
+  public timeLeft: number = 0;
+
+  public totalPorcent = 0;
+  public acutalPorcent = 0;
+  public grados = 0;
+
+  public stop$ = new Subject();
 
   ngOnInit() {
-    if (this.timeMinutes !== undefined) {
-      this.progres = this.calculateProgressCircle2(this.timeMinutes);
-    }
+    this.totalTime = this.minutes * 60;
+    this.timeLeft = this.totalTime;
   }
 
-  public calculateProgressCircle2(rating: number): number {
-    const progressCap = rating * 60;
-    // return (rating * progressCap) / 10;
-    return progressCap / 1;
+  public startTimer() {
+    console.log('hola');
+    timer(0, 1000)
+      .pipe(
+        tap(() => {
+          if (this.timeLeft !== undefined && this.totalTime !== undefined) {
+            this.timeLeft--;
+            this.totalPorcent = (this.timeLeft / this.totalTime) * 100;
+            this.acutalPorcent = 100 - this.totalPorcent;
+            this.grados = (this.acutalPorcent * 360) / 100;
+            console.log({ porcetanjeActual: this.acutalPorcent });
+            if (this.timeLeft === 0) {
+              this.stop$.next(0);
+            }
+          }
+        }),
+        takeUntil(this.stop$)
+      )
+      .subscribe();
+  }
+
+  public stopTimer() {
+    this.stop$.next(0);
   }
 }
