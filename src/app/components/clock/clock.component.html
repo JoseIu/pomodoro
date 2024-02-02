@@ -1,8 +1,17 @@
-<div
-  class="circular-progress"
-  [ngStyle]="{
-    background: 'conic-gradient(#ec6000 ' + progres + 'deg, #070709 0deg)'
-  }"
->
-  <div class="progress-value">{{ timeMinutes?.toFixed(1) }}</div>
+<div class="clock">
+  <div
+    class="circular-progress"
+    [ngStyle]="{
+      background: 'conic-gradient(#84CC16 ' + grados + 'deg, #18181b 0deg)'
+    }"
+  >
+    <div class="progress-value">
+      {{ timeLeft * 1000 | date : "mm:ss" }}
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button class="buttons__btn" (click)="startTimer()">Start</button>
+    <button class="buttons__btn" (click)="stopTimer()">Stop</button>
+  </div>
 </div>
