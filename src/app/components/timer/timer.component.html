@@ -70,5 +70,11 @@
     </form>
   </div>
 
-  <clock-timer [workTime]="workTime" [breakTime]="breakTime" />
+  <clock-timer
+    [workTime]="workTime"
+    [breakTime]="breakTime"
+    (workStatus)="getWorkStatus($event)"
+  />
+
+  <work-status [workStatus]="workStatus" />
 </div>
