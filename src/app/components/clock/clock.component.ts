@@ -13,6 +13,9 @@ export class ClockComponent implements OnInit {
   @Input() public minutes: number = 1;
   @Input() public rest: number = 0;
 
+  public isFocus: boolean = false;
+
+  //in seconds
   public totalTime?: number;
   public timeLeft: number = 0;
 
@@ -28,7 +31,6 @@ export class ClockComponent implements OnInit {
   }
 
   public startTimer() {
-    console.log('hola');
     timer(0, 1000)
       .pipe(
         tap(() => {
@@ -37,9 +39,11 @@ export class ClockComponent implements OnInit {
             this.totalPorcent = (this.timeLeft / this.totalTime) * 100;
             this.acutalPorcent = 100 - this.totalPorcent;
             this.grados = (this.acutalPorcent * 360) / 100;
+            this.isFocus = true;
             console.log({ porcetanjeActual: this.acutalPorcent });
             if (this.timeLeft === 0) {
               this.stop$.next(0);
+              this.isFocus = false;
             }
           }
         }),
@@ -48,7 +52,16 @@ export class ClockComponent implements OnInit {
       .subscribe();
   }
 
-  public stopTimer() {
+  public pauseTimer() {
     this.stop$.next(0);
+    this.isFocus = false;
+  }
+  public resetTimer() {
+    this.stop$.next(0);
+    this.totalTime = this.minutes * 60;
+    this.timeLeft = this.totalTime;
+    this.grados = 0;
+
+    this.isFocus = false;
   }
 }
