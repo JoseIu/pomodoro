@@ -7,11 +7,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { ClockComponent } from '../clock/clock.component';
+import { WorkStatusComponent } from '../work-status/work-status.component';
 
 @Component({
   selector: 'app-timer',
   standalone: true,
-  imports: [ClockComponent, CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    WorkStatusComponent,
+    ClockComponent,
+  ],
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.scss',
 })
@@ -20,11 +26,15 @@ export class TimerComponent {
   public isOpen: boolean = false;
   public workTime: number = 0;
   public breakTime: number = 0;
+  public workStatus: boolean = true;
 
   public myForm: FormGroup = this.fb.group({
-    workTime: [0, [Validators.required, Validators.min(25)]],
-    breakTime: [0, [Validators.required, Validators.min(5)]],
+    workTime: [0, [Validators.required, Validators.min(1)]],
+    breakTime: [0, [Validators.required, Validators.min(1)]],
   });
+  public getWorkStatus(workStatus: boolean): void {
+    this.workStatus = workStatus;
+  }
 
   public openForm() {
     this.isOpen = !this.isOpen;
