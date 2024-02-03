@@ -11,7 +11,13 @@
   </div>
 
   <div class="buttons">
+    @if (isFocus) {
+    <button class="buttons__btn" (click)="pauseTimer()">Pause</button>
+
+    } @else {
     <button class="buttons__btn" (click)="startTimer()">Start</button>
-    <button class="buttons__btn" (click)="stopTimer()">Stop</button>
+
+    }
+    <button class="buttons__btn" (click)="resetTimer()">Reset</button>
   </div>
 </div>
