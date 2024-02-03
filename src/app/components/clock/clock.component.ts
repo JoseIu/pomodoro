@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Subject, takeUntil, tap, timer } from 'rxjs';
 
 @Component({
@@ -13,7 +20,10 @@ export class ClockComponent implements OnChanges {
   @Input() public workTime: number = 0;
   @Input() public breakTime: number = 0;
 
+  @Output() workStatus = new EventEmitter<boolean>();
+  //To show button start or pause
   public isFocus: boolean = false;
+  public isWorkTime: boolean = true;
 
   //in seconds
   public totalTime?: number;
@@ -26,11 +36,24 @@ export class ClockComponent implements OnChanges {
   public stop$ = new Subject();
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log({ changes: changes });
+    //To set the first Value form the FORM
     if (changes['workTime'] || changes['breakTime']) {
       this.totalTime = this.workTime * 60;
       this.timeLeft = this.totalTime;
     }
+  }
+  public startWorkTimer() {
+    this.isWorkTime = true;
+    this.totalTime = this.workTime * 60;
+    this.timeLeft = this.totalTime;
+    this.startTimer();
+  }
+
+  public startBreakTimer() {
+    this.isWorkTime = false;
+    this.totalTime = this.breakTime * 60;
+    this.timeLeft = this.totalTime;
+    this.startTimer();
   }
 
   public startTimer() {
@@ -43,10 +66,17 @@ export class ClockComponent implements OnChanges {
             this.acutalPorcent = 100 - this.totalPorcent;
             this.grados = (this.acutalPorcent * 360) / 100;
             this.isFocus = true;
-            console.log({ porcetanjeActual: this.acutalPorcent });
+            this.workStatus.emit(this.isWorkTime);
+
             if (this.timeLeft === 0) {
               this.stop$.next(0);
               this.isFocus = false;
+              this.workStatus.emit(this.isWorkTime);
+              if (this.isWorkTime) {
+                this.startBreakTimer();
+                return;
+              }
+              this.startWorkTimer();
             }
           }
         }),
