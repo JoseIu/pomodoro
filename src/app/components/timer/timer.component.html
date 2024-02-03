@@ -28,17 +28,41 @@
         />
       </svg>
     </button>
-    <form class="form">
+    <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
       <div class="form__settings">
         <div class="form__setting">
           <label class="form__label" for="work">Work time (in minues)</label>
-          <input class="form__input" type="number" name="work" id="work" />
+          <input
+            class="form__input"
+            formControlName="workTime"
+            type="number"
+            name="work"
+            id="work"
+          />
+          @if (isValiedField('workTime')) {
+          <span class="form__error">
+            {{ getFielError("workTime") }}
+          </span>
+
+          }
         </div>
 
         <div class="form__setting">
           <label class="form__label" for="break">Break time (in minues)</label>
 
-          <input class="form__input" type="number" name="break" id="break" />
+          <input
+            class="form__input"
+            formControlName="breakTime"
+            type="number"
+            name="break"
+            id="break"
+          />
+          @if (isValiedField('breakTime')) {
+          <span class="form__error">
+            {{ getFielError("breakTime") }}
+          </span>
+
+          }
         </div>
       </div>
 
@@ -46,5 +70,5 @@
     </form>
   </div>
 
-  <clock-timer />
+  <clock-timer [workTime]="workTime" [breakTime]="breakTime" />
 </div>
