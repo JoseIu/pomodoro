@@ -78,6 +78,11 @@
     padding: 0.4em 0.8em;
     border-radius: 0.3em;
   }
+  &__error {
+    font-size: 0.8rem;
+    letter-spacing: 0.1rem;
+    color: red;
+  }
 }
 .form--open {
   top: 0;
