@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Subject, takeUntil, tap, timer } from 'rxjs';
 
 @Component({
@@ -9,9 +9,9 @@ import { Subject, takeUntil, tap, timer } from 'rxjs';
   templateUrl: './clock.component.html',
   styleUrl: './clock.component.scss',
 })
-export class ClockComponent implements OnInit {
-  @Input() public minutes: number = 1;
-  @Input() public rest: number = 0;
+export class ClockComponent implements OnChanges {
+  @Input() public workTime: number = 0;
+  @Input() public breakTime: number = 0;
 
   public isFocus: boolean = false;
 
@@ -25,9 +25,12 @@ export class ClockComponent implements OnInit {
 
   public stop$ = new Subject();
 
-  ngOnInit() {
-    this.totalTime = this.minutes * 60;
-    this.timeLeft = this.totalTime;
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log({ changes: changes });
+    if (changes['workTime'] || changes['breakTime']) {
+      this.totalTime = this.workTime * 60;
+      this.timeLeft = this.totalTime;
+    }
   }
 
   public startTimer() {
@@ -58,7 +61,7 @@ export class ClockComponent implements OnInit {
   }
   public resetTimer() {
     this.stop$.next(0);
-    this.totalTime = this.minutes * 60;
+    this.totalTime = this.workTime * 60;
     this.timeLeft = this.totalTime;
     this.grados = 0;
 
