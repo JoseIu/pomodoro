@@ -1,6 +1,53 @@
-<span class="taks">
-  <input type="checkbox" name="" id="" />
-  <span
-    >Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, quod.</span
-  >
-</span>
+<section class="tasks">
+  <header class="header">
+    <h2 class="header__title">
+      List of taks <span class="header__icon">🚀</span>
+    </h2>
+    <span class="header__subtitle">Your golas for this session</span>
+  </header>
+
+  <div class="tasks__list">
+    @if (tasks) { @for (task of tasks; track $index) {
+    <div class="task">
+      <span class="task__item">
+        @if (task.isCompleted) {
+        <check-icon class="task__check" />
+        }@else {
+        <circle-icon class="task__completed" />
+        }
+
+        <span> {{ task.task }} </span>
+      </span>
+      <div class="actions">
+        <button class="actions__confirm" (click)="completetask(task.id)">
+          <check-icon class="actions__confirm-icon" />
+        </button>
+        <button class="actions__edit" (click)="edittask(task.id)">
+          <edit-icon />
+        </button>
+        <button class="actions__delete" (click)="deteletask(task.id)">
+          <delete-icon />
+        </button>
+      </div>
+    </div>
+
+    } }
+  </div>
+
+  <form class="form" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <div class="form__camp">
+      <input
+        class="form__input"
+        type="text"
+        name="task"
+        id="task"
+        placeholder="new task...."
+        formControlName="task"
+      />
+      @if(isValiedField('task')){
+      <span class="form__error">{{ getFielError("task") }} </span>
+      }
+    </div>
+    <input class="form__submit" type="submit" value="Add task" />
+  </form>
+</section>

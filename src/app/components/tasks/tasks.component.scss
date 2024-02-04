@@ -1,4 +1,105 @@
-.taks {
+.tasks {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 2em;
+}
+
+.header {
+  border-bottom: 0.0625rem solid var(--zinc-800);
+  padding: 0 0 0.5em 0;
+  color: var(--zinc-400);
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 600;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__icon {
+    font-size: 1.5rem;
+  }
+  &__subtitle {
+    font-size: 0.9rem;
+  }
+}
+
+.form {
+  padding: 0.3em;
+  display: flex;
+  gap: 1em;
+  &__camp {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
+  }
+  &__input {
+    width: 100%;
+    padding: 0.3em 1em;
+    border-radius: 0.3em;
+    background-color: var(--zinc-800);
+  }
+  &__submit {
+    height: 1.9375rem;
+    padding: 0.2em 0.5em;
+    border-radius: 0.3em;
+    color: var(--zinc-400);
+    background-color: rgba(132, 204, 22, 0.1);
+    outline: 1px solid #84cc16;
+    cursor: pointer;
+  }
+  &__error {
+    bottom: -1.5em;
+    left: 0.6em;
+    position: absolute;
+    color: red;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+}
+.task {
+  padding: 0.4em;
   display: flex;
   gap: 0.6em;
+  justify-content: space-between;
+  border-bottom: 0.0625rem solid var(--zinc-800);
+  &__item {
+    display: flex;
+    align-items: center;
+    column-gap: 0.3em;
+    width: 100%;
+  }
+  &__check {
+    color: #84cc16;
+  }
+  &__completed {
+    font-size: 0.6rem;
+  }
+}
+.actions {
+  display: flex;
+  gap: 0.7em;
+  &__confirm,
+  &__edit,
+  &__delete {
+    cursor: pointer;
+  }
+
+  &__confirm {
+    color: green;
+    &-icon {
+      font-size: 1.4rem;
+    }
+  }
+  &__edit {
+    color: yellow;
+  }
+  &__delete {
+    color: red;
+  }
 }
