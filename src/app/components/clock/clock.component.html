@@ -15,7 +15,15 @@
     <button class="buttons__btn" (click)="pauseTimer()">Pause</button>
 
     } @else {
-    <button class="buttons__btn" (click)="startTimer()">Start</button>
+
+    <button
+      class="buttons__btn"
+      [disabled]="workTime === 0"
+      [ngClass]="{ disabled: workTime === 0 }"
+      (click)="startTimer()"
+    >
+      Start
+    </button>
 
     }
     <button class="buttons__btn" (click)="resetTimer()">Reset</button>
