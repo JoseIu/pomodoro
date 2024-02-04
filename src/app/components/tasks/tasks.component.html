@@ -48,6 +48,10 @@
       <span class="form__error">{{ getFielError("task") }} </span>
       }
     </div>
-    <input class="form__submit" type="submit" value="Add task" />
+    <input
+      class="form__submit"
+      type="submit"
+      [value]="isEditingTask ? 'Edit task' : 'Add Task'"
+    />
   </form>
 </section>
