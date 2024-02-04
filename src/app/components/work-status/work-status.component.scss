@@ -1,13 +1,8 @@
 .status {
-  padding: 1em;
   display: flex;
-  flex-direction: column;
-  row-gap: 0.8em;
+  justify-content: space-between;
+  align-items: center;
 
-  &__content {
-    display: flex;
-    justify-content: space-between;
-  }
   &__icon {
     width: 1em;
   }

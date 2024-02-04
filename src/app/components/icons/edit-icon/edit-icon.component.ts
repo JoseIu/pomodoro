@@ -5,6 +5,5 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './edit-icon.component.html',
-  styleUrl: './edit-icon.component.scss',
 })
 export class EditIconComponent {}

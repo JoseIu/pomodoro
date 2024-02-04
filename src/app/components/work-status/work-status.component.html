@@ -1,20 +1,18 @@
 <div class="status">
-  <div class="status__content">
-    <span class="status__mode">Current mode:</span>
-    @if (workStatus ) {
-    <status-focus />
+  <span class="status__mode">Current mode:</span>
+  @if (workStatus ) {
+  <status-focus />
 
-    }@else {
-    <status-break />
-    }
-  </div>
-  <div class="status__content">
-    <span class="status__mode">Next mode:</span>
-    @if (!workStatus) {
-    <status-focus />
+  }@else {
+  <status-break />
+  }
+</div>
+<div class="status">
+  <span class="status__mode">Next mode:</span>
+  @if (!workStatus) {
+  <status-focus />
 
-    }@else {
-    <status-break />
-    }
-  </div>
+  }@else {
+  <status-break />
+  }
 </div>

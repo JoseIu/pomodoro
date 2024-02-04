@@ -5,6 +5,5 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './delete-icon.component.html',
-  styleUrl: './delete-icon.component.scss',
 })
 export class DeleteIconComponent {}
