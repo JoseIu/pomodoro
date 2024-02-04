@@ -58,7 +58,7 @@ export class TasksComponent implements OnInit {
   }
 
   getFielError(field: string): string | null {
-    if (!this.formSubmitted || this.taskForm.controls[field].valid) return null;
+    if (!this.formSubmitted || !this.taskForm.controls[field]) return null;
 
     const errors = this.taskForm.controls[field].errors || {};
 
