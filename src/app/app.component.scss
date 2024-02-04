@@ -7,6 +7,12 @@
 
   gap: 2em;
 }
+.title {
+  padding: 1em 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--zinc-400);
+}
 
 .container {
   display: grid;
@@ -15,10 +21,12 @@
 
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
+    gap: 2em;
   }
 }
 
 .box {
+  min-height: 30em;
   padding: 1em;
   border-radius: 0.3em;
   border: 1px solid var(--zinc-800);
