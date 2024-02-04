@@ -7,15 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
+import { Task } from '../../interfaces/task.interface';
 import { CheckIconComponent } from '../icons/check-icon/check-icon.component';
 import { CircleIconComponent } from '../icons/circle-icon/circle-icon.component';
 import { DeleteIconComponent } from '../icons/delete-icon/delete-icon.component';
 import { EditIconComponent } from '../icons/edit-icon/edit-icon.component';
-interface Task {
-  id: string;
-  task: string;
-  isCompleted: boolean;
-}
 
 @Component({
   selector: 'app-tasks',
@@ -32,8 +28,12 @@ interface Task {
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent implements OnInit {
-  public tasks: Task[] = [];
   private fb = inject(FormBuilder);
+  public tasks: Task[] = [];
+
+  //Variable is used to save the id of the task that we are editing
+  public editingTaskID?: string;
+  public isEditingTask: boolean = false;
 
   public taskForm: FormGroup = this.fb.group({
     task: ['', Validators.required],
@@ -74,11 +74,26 @@ export class TasksComponent implements OnInit {
       return;
     }
 
-    const task = this.taskForm.value.task;
+    const taskValue = this.taskForm.value.task;
 
     if (!this.tasks) return;
 
-    this.tasks.push({ id: uuidv4(), task, isCompleted: false });
+    //Check if the task is already in the list (when we Edit the task)
+    const taskIndex = this.tasks.findIndex(
+      (task) => task.id === this.editingTaskID
+    );
+
+    if (taskIndex !== -1) {
+      this.tasks[taskIndex].task = taskValue;
+      this.editingTaskID = '';
+      this.saveTaskToLocalStorage();
+
+      this.isEditingTask = false;
+      this.taskForm.reset();
+      return;
+    }
+
+    this.tasks.push({ id: uuidv4(), task: taskValue, isCompleted: false });
 
     this.taskForm.reset();
     this.saveTaskToLocalStorage();
@@ -96,6 +111,21 @@ export class TasksComponent implements OnInit {
 
     this.saveTaskToLocalStorage();
   }
-  public edittask(id: string) {}
-  public deteletask(id: string) {}
+  public edittask(id: string) {
+    const taskFound = this.tasks.find((task) => task.id === id);
+
+    if (!taskFound) return;
+
+    this.isEditingTask = true;
+
+    this.taskForm.setValue({ task: taskFound.task });
+    this.editingTaskID = taskFound.id;
+  }
+  public deteletask(id: string) {
+    const taskFound = this.tasks.find((task) => task.id === id);
+
+    if (!taskFound) return;
+    this.tasks = this.tasks.filter((task) => task.id !== taskFound.id);
+    this.saveTaskToLocalStorage();
+  }
 }
