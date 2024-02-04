@@ -62,6 +62,19 @@
     letter-spacing: 0.1em;
   }
 }
+.tasks__list {
+  height: 20em;
+  overflow-y: scroll;
+  scroll-snap-type: x mandatory;
+}
+
+.tasks__list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.tasks__list::-webkit-scrollbar-thumb {
+  background-color: var(--zinc-800);
+}
 .task {
   padding: 0.4em;
   display: flex;
