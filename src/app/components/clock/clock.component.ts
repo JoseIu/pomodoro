@@ -19,8 +19,10 @@ import { Subject, takeUntil, tap, timer } from 'rxjs';
 export class ClockComponent implements OnChanges {
   @Input() public workTime: number = 0;
   @Input() public breakTime: number = 0;
-
   @Output() workStatus = new EventEmitter<boolean>();
+
+  private audio = new Audio('assets/sounds/alarm.mp3');
+
   //To show button start or pause
   public isFocus: boolean = false;
   public isWorkTime: boolean = true;
@@ -69,6 +71,7 @@ export class ClockComponent implements OnChanges {
             this.workStatus.emit(this.isWorkTime);
 
             if (this.timeLeft === 0) {
+              this.playSound();
               this.stop$.next(0);
               this.isFocus = false;
               this.workStatus.emit(this.isWorkTime);
@@ -96,5 +99,9 @@ export class ClockComponent implements OnChanges {
     this.grados = 0;
 
     this.isFocus = false;
+  }
+
+  public playSound() {
+    this.audio.play();
   }
 }
