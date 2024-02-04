@@ -29,8 +29,14 @@ export class TimerComponent {
   public workStatus: boolean = true;
 
   public myForm: FormGroup = this.fb.group({
-    workTime: [0, [Validators.required, Validators.min(1)]],
-    breakTime: [0, [Validators.required, Validators.min(1)]],
+    workTime: [
+      0,
+      [Validators.required, Validators.min(25), Validators.max(60)],
+    ],
+    breakTime: [
+      0,
+      [Validators.required, Validators.min(5), Validators.max(10)],
+    ],
   });
   public getWorkStatus(workStatus: boolean): void {
     this.workStatus = workStatus;
@@ -61,6 +67,8 @@ export class TimerComponent {
           return 'The camp is required';
         case 'min':
           return `Minimun ${errors['min'].min} minutes`;
+        case 'max':
+          return `Maximum ${errors['max'].max} minutes`;
       }
     }
     return null;
