@@ -35,13 +35,15 @@ export class TasksComponent implements OnInit {
   public editingTaskID?: string;
   public isEditingTask: boolean = false;
 
+  //Variable to show ERRO only when the form is submitted
+  public formSubmitted: boolean = false;
+
   public taskForm: FormGroup = this.fb.group({
     task: ['', Validators.required],
   });
 
   ngOnInit(): void {
     const tasksSaved = JSON.parse(localStorage.getItem('tasks') || '[]');
-    console.log('tasksSaved', tasksSaved);
 
     if (tasksSaved.length > 0) {
       this.tasks = tasksSaved;
@@ -56,7 +58,7 @@ export class TasksComponent implements OnInit {
   }
 
   getFielError(field: string): string | null {
-    if (!this.taskForm.controls[field]) return null;
+    if (!this.formSubmitted || this.taskForm.controls[field].valid) return null;
 
     const errors = this.taskForm.controls[field].errors || {};
 
@@ -69,6 +71,7 @@ export class TasksComponent implements OnInit {
     return null;
   }
   onSubmit() {
+    this.formSubmitted = true;
     if (this.taskForm.invalid) {
       this.taskForm.markAllAsTouched();
       return;
