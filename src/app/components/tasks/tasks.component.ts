@@ -63,7 +63,7 @@ export class TasksComponent implements OnInit {
     for (const key of Object.keys(errors)) {
       switch (key) {
         case 'required':
-          return 'The camp cant not be empty';
+          return 'The camp can not be empty';
       }
     }
     return null;

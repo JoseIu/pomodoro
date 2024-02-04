@@ -29,5 +29,7 @@
   min-height: 30em;
   padding: 1em;
   border-radius: 0.3em;
-  border: 1px solid var(--zinc-800);
+  // border: 1px solid var(--zinc-800);
+  // box-shadow: 0 0 10px 0 var(--zinc-800);
+  box-shadow: 10px 10px 20px var(--zinc-900), -10px -10px 20px var(--zinc-900);
 }
