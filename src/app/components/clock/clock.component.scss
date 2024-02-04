@@ -1,27 +1,33 @@
 .circular-progress {
   position: relative;
-  background: conic-gradient(var(--bg-color) 220deg, var(--bg-color) 0deg);
-  height: 6rem;
-  width: 6rem;
+  height: 10rem;
+  width: 10rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   transition: all 0.2s ease;
-  outline: 0.0625rem solid var(--zinc-800);
+
+  // box-shadow: 5px 5px 10px #141417, -5px -5px 10px #1c1c1f;
 }
 .circular-progress::before {
   content: "";
   position: absolute;
-  height: 5rem;
-  width: 5rem;
+  height: 8rem;
+  width: 8rem;
   border-radius: 50%;
   background-color: var(--zinc-900);
+  box-shadow: 5px 5px 10px #141417, -5px -5px 10px #1c1c1f;
 }
 .progress-value {
+  width: 4em;
   font-size: 1.3rem;
   position: relative;
   color: var(--zinc-100);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .clock {
   display: flex;
@@ -36,7 +42,10 @@
   &__btn {
     padding: 0.3em 1em;
     border-radius: 0.5em;
-    border: 0.0625rem solid var(--zinc-800);
+
+    // border: 0.0625rem solid var(--zinc-800);
+    box-shadow: 4px 4px 9px #141417, -4px -4px 9px #1c1c1f;
+
     cursor: pointer;
   }
 }
